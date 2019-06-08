@@ -58,5 +58,16 @@ export const actions = {
       commit('setError', error.message)
       commit('setLoading', false)
     })
+  },
+  getMenu ({commit}, payload) {
+    commit('setLoading', true)
+    firebase.database().ref('menu').on('child_added', snapshot => {
+      payload.push({
+        ...snapshot.val(),
+        id: snapshot.key,
+        type: snapshot.child('menuType').val()
+      })
+    })
+    commit('setLoading', false)
   }
 }

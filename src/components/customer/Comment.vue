@@ -1,6 +1,9 @@
 <template>
   <v-flex>
     <v-toolbar dark>
+      <v-toolbar-side-icon>
+        <v-icon>keyboard_backspace</v-icon>    
+      </v-toolbar-side-icon>
       <v-toolbar-title>แสดงความคิดเห็น</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
