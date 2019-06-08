@@ -7,58 +7,90 @@
         <v-btn flat @click="signOutAccount">ออกจากระบบ</v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-layout row wrap>
-      <v-flex xs3>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>store</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>รายการสินค้า</v-list-tile-title>
-          </v-list-tile>
-          
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>reorder</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>รายการสั่งซื้อ</v-list-tile-title>
-          </v-list-tile>
+    <v-layout column>
+      <v-parallax
+        dark
+        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      >
+        <v-layout
+          align-center
+          column
+          justify-center
+        >
+          <h1 class="display-2 font-weight-thin mb-3">Vuetify.js</h1>
+          <h4 class="subheading">Build your application today!</h4>
+          <v-btn raised color="green" append replace to="/goods">เลือกรายการ</v-btn>
+        </v-layout>
+      </v-parallax>
+      <v-container>
+        <v-timeline>
+          <v-timeline-item
+            color="red lighten-2"
+            large
+          >
+            <template v-slot:opposite>
+              <span></span>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-title class="headline">รายการสินค้า</v-card-title>
+              <v-card-text>
 
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>credit_card</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>ค่าใช้จ่าย</v-list-tile-title>
-          </v-list-tile>
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
 
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>description</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>แสดงความคิดเห็น</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-flex>
-      <v-flex xs9>
-        <Comment></Comment>
-      </v-flex>
+          <v-timeline-item
+            color="red lighten-2"
+            large
+          >
+            <template v-slot:opposite>
+              <span></span>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-title class="headline">รายการสั่งซื้อ</v-card-title>
+              <v-card-text>
+
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
+
+          <v-timeline-item
+            color="red lighten-2"
+            large
+          >
+            <template v-slot:opposite>
+              <span></span>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-title class="headline">ค่าใช้จ่าย</v-card-title>
+              <v-card-text>
+
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
+
+          <v-timeline-item
+            color="red lighten-2"
+            large
+          >
+            <template v-slot:opposite>
+              <span></span>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-title class="headline">แสดงความคิดเห็น</v-card-title>
+              <v-card-text>
+
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
+        </v-timeline>
+      </v-container>
     </v-layout>
   </v-flex>
 </template>
 
 <script>
-import Comment from './customer/Comment'
-import Basket from './customer/Basket'
-import Bill from './customer/Bill'
-import Goods from './customer/Goods'
-
 export default {
-  components: {
-    Comment,
-    Basket,
-    Bill,
-    Goods
-  },
   methods: {
     signOutAccount() {
       this.$store.dispatch('signOutAccount')
