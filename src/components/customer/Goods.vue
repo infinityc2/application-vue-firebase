@@ -12,6 +12,9 @@
         <v-card elevation="15">
           <v-card-title>รายการสินค้า</v-card-title>
           <v-container fluid grid-list-md>
+            <v-alert v-model="alert" dismissible color="green" type="success" transition="scale-transition">
+              เพิ่มรายการแล้ว
+            </v-alert>
             <v-layout row wrap>
               <v-card 
                 v-for="menu in menus" 
@@ -28,7 +31,7 @@
                   <p class="body-2">ราคา {{ menu.price }} บาท</p>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn flat color="green">เลือก</v-btn>
+                  <v-btn flat color="green" @click="pushBasket(menu, basket)">เลือก</v-btn>
                 </v-card-actions>
               </v-card>
             </v-layout>
@@ -41,15 +44,40 @@
 
 <script>
 import firebase from 'firebase'
+import Vue from 'vue'
+
+var basketDialog = Vue.component('basketDialog', {
+  props: ['dialog', 'basket'],
+  template: `
+    <v-dialog>
+      
+    </v-dialog>
+  `
+})
 
 export default {
+  components: {
+    basketDialog
+  },
   data () {
     return {
-      menus: []
+      menus: [],
+      basket: [],
+      alert: false,
+      dialog: false
     }
   },
   created () {
     this.$store.dispatch('getMenu', this.menus)
+  },
+  methods: {
+    pushBasket (menu, basket) {
+      this.$store.dispatch('pushBasket', {
+        menu: menu,
+        basket: basket
+      })
+      this.alert = true
+    }
   }
 }
 </script>

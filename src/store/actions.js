@@ -69,5 +69,16 @@ export const actions = {
       })
     })
     commit('setLoading', false)
+  },
+  pushBasket ({commit}, payload) {
+    commit('setLoading', true)
+    payload.basket.push({
+      id: payload.menu.id,
+      name: payload.menu.name,
+      price: payload.menu.price,
+      type: payload.menu.type.type
+    })
+    commit('setLoading', false)
   }
+  
 }

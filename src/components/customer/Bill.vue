@@ -15,3 +15,10 @@
     </v-container>
   </v-flex>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
+
