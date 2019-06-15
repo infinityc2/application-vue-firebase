@@ -7,7 +7,7 @@ export const actions = {
     firebase.auth().signInAnonymously()
       .then(function() {
         commit('setLoading', false)
-        router.push('/home')
+        router.push('/goods')
       })
       .catch(error => {
         commit('setError', error.message)
@@ -21,7 +21,7 @@ export const actions = {
         commit('setUser', user)
         commit('setLoading', false)
         commit('setError', null)
-        router.push('/home')
+        router.push('/admin')
       })
       .catch(error => {
         commit('setError', error.message)
@@ -79,6 +79,11 @@ export const actions = {
       type: payload.menu.type.type
     })
     commit('setLoading', false)
+  },
+  popBasket ({commit}, payload) {
+    commit('setLoading', true)
+    var index = payload.basket.findIndex(item => item.id === payload.id)
+    payload.basket.splice(index, 1)
+    commit('setLoading', false)
   }
-  
 }

@@ -2,14 +2,19 @@
   <v-layout row>
     <v-flex xs12>
       <v-toolbar dark>
-        <v-toolbar-side-icon>
-          <v-icon>keyboard_backspace</v-icon>    
+        <v-toolbar-side-icon @click="drawer = !drawer">
+          <v-icon>reorder</v-icon>    
         </v-toolbar-side-icon>
         <v-toolbar-title>รายการสินค้า</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn flat @click.stop="dialog = !dialog">
-            <v-icon>local_grocery_store</v-icon>สินค้าในตะกร้า
+            <v-badge left color="orange">
+              <template v-slot:badge>
+                <span>{{ basket.length }}</span>
+              </template>
+              <v-icon>local_grocery_store</v-icon>สินค้าในตะกร้า
+            </v-badge>
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -50,13 +55,43 @@
           </v-list>
         </v-card>
       </v-dialog>
+      <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        temporary
+        dark
+      >
+        <v-list class="pt-0" dense>
+          <v-list-tile replace append to="/goods">
+            <v-list-tile-action>
+              <v-icon>group</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>รายการสินค้า</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile replace append to="/bill">
+            <v-list-tile-action>
+              <v-icon>receipt</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>รายการสั่งซื้อ</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile replace append to="/comment">
+            <v-list-tile-action>
+              <v-icon>feedback</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>แสดงความคิดเห็น</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
       <v-container>
         <v-card elevation="15">
           <v-card-title>รายการสินค้า</v-card-title>
           <v-container fluid grid-list-md>
-            <v-alert v-model="alert" dismissible color="green" type="success" transition="scale-transition">
-              เพิ่มรายการแล้ว
-            </v-alert>
             <v-layout row wrap>
               <v-card 
                 v-for="menu in menus" 
@@ -92,8 +127,8 @@ export default {
     return {
       menus: [],
       basket: [],
-      alert: false,
-      dialog: false
+      dialog: false,
+      drawer: null
     }
   },
   created () {
@@ -108,8 +143,7 @@ export default {
       this.alert = true
     },
     popBasket (id) {
-      var index = this.basket.findIndex(item => item.id === id)
-      this.basket.splice(index, 1)
+      this.$store.dispatch('popBasket', {basket: this.basket, id: id})
     }
   }
 }
