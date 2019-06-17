@@ -7,5 +7,8 @@ export const mutations = {
   },
   setLoading (state, payload) {
     state.loading = payload
+  },
+  setTable (state, payload) {
+    state.table = payload
   }
 }

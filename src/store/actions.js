@@ -70,6 +70,16 @@ export const actions = {
     })
     commit('setLoading', false)
   },
+  getTable ({commit}, payload) {
+    commit('setLoading', true)
+    firebase.database().ref('table').on('child_added', snapshot => {
+      payload.push({
+        ...snapshot.val(),
+        id: snapshot.key
+      })
+    })
+    commit('setLoading', false)
+  },
   pushBasket ({commit}, payload) {
     commit('setLoading', true)
     payload.basket.push({

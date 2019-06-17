@@ -7,5 +7,8 @@ export const getters = {
   },
   getLoading (state) {
     return state.loading
+  },
+  getTable (state) {
+    return state.table
   }
 }
